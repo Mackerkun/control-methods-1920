@@ -1,0 +1,18 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#infos {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    border-radius: 20px;
+    background-color: white;
+    padding: 1%;
+}
+
+#infos div {
+    padding: 15px;
+}

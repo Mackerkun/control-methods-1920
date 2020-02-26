@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="style/index_style.css">
+    <title>Video | Control Methods Project</title>
+</head>
+
+<body>
+    <div class="logged-in" id="infos">
+        <div>Latitude: <span id="latSection">85</span></div>
+        <div>Longitude: <span id="lonSection">0</span></div>
+    </div>
+
+    <div class="logged-in" id="container"></div>
+
+    <video id="video" muted crossOrigin="anonymous" playsinline style="display:none">
+        <source src="assets/video/pano.webm">
+        <source src="assets/video/pano.mp4">
+    </video>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-firestore.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyA-XYT85DK_9Qss7kCdvJH987yeZyQcUWs",
+            authDomain: "control-methods-project.firebaseapp.com",
+            databaseURL: "https://control-methods-project.firebaseio.com",
+            projectId: "control-methods-project",
+            storageBucket: "control-methods-project.appspot.com",
+            messagingSenderId: "220892328109",
+            appId: "1:220892328109:web:c07d7fbcb68a54dbf31624"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+		const auth = firebase.auth();
+		const db = firebase.firestore();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src="scripts/auth.js"></script>
+    <script src="scripts/setup.js"></script>
+    <script src="scripts/three.js"></script>
+    <script src="scripts/video_settings.js"></script>
+</body>
+
+</html>
