@@ -179,8 +179,7 @@ videoElement.onended = function() {
     // Stop array pushing
     clearInterval(uploadLonAndLat);
 
-    // Add arrays to Firestore
-/*  
+    // Add arrays to Firestore  
     db.collection('analysis').add({
             user: userName,
             userID: userUid,
@@ -195,7 +194,7 @@ videoElement.onended = function() {
         .catch(function (error) {
             console.error("Error adding document: ", error);
         });
-*/
+
 
 }
 

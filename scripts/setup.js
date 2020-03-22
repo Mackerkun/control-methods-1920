@@ -55,15 +55,15 @@ const setupAnalysis = (data) => {
 							</div>
 						</div>
 						<div class="row">
-							<div class="col s6">
+							<div class="col s8 push-s2">
 								<div id="plotElement${doc.id}"></div>
 							</div>
-							<div class="col s6">
+							<div class="col s8 push-s2">
 								<div id="plotElement2${doc.id}"></div>
 							</div>	
 						</div>
 						<div class="row">						
-							<a class="waves-effect waves-light btn download-csv" title="${doc.id}" style="margin-top: 10px">Export in CSV</a>
+							<a class="waves-effect waves-light btn right download-csv" title="${doc.id}" style="margin-top: 10px">Export in CSV</a>
 						</div>
 					</div>
 				</li>
@@ -75,6 +75,7 @@ const setupAnalysis = (data) => {
 	};
 
 	html += `<a class="waves-effect waves-light btn right" id="play-video-button" href="video.html#${userUid}" target="_blank" style="margin-top: 10px"><i class="material-icons left">video_library</i>Play video</a>`;
+	html += `<a class="waves-effect waves-light btn modal-trigger right" id="3d-graph-button" href="#" data-target="modal-3d-graph" style="margin-top: 10px; margin-right: 10px"><i class="material-icons left">show_chart</i>3D Graph</a>`;
 	(userUid) ? analysisList.innerHTML = html : '';
 	exportCSV();
 
@@ -91,17 +92,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+// Export arrays in CSV file
 function exportCSV() {
 	document.querySelectorAll('.download-csv').forEach(function(elem) {
 		elem.addEventListener('click', function() {
 			var document = elem.getAttribute('title');
 			db.collection('analysis').doc(document).get().then(function(doc) {
 				if (doc.exists) {
-					const rows = [doc.data().lonArray, doc.data().latArray];
+
+					// Prepare variables
+					var exportLon = ["Longitude"];
+					exportLon.push(doc.data().lonArray);
+					var exportLat = ["Latitude"];
+					exportLat.push(doc.data().latArray);
+					var time = doc.data().lonArray.length;
+					var exportTime = ["Second"];
+					var addTime = [...Array(Number(time+1)).keys()].slice(1);
+					exportTime.push(addTime);
+
+					// Create CSV
+					const rows = [exportTime, exportLon, exportLat];
 					let csvContent = rows.map(e => e.join(",")).join("\n");
 					var link = window.document.createElement("a");
 					link.setAttribute("href", "data:text/csv;charset=utf-8,%EF%BB%BF" + encodeURI(csvContent));
-					link.setAttribute("download", "360_video_data.csv");
+					link.setAttribute("download", "360_video_data_" + document + ".csv");
 					link.click();
 				} else {
 					// doc.data() will be undefined in this case
