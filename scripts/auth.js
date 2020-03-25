@@ -5,7 +5,7 @@ var userUid,
 auth.onAuthStateChanged(user => {
 	if (user) {
 		userUid = user.uid;
-		db.collection('analysis').onSnapshot(snapshot => {
+		db.collection('analysis').orderBy('date').onSnapshot(snapshot => {
 			setupAnalysis(snapshot.docs);
 			setupUI(user);
 		}, err => console.log(err.message));
@@ -25,7 +25,7 @@ if (signupForm) {
 		// get user info
 		const email = signupForm['signup-email'].value;
 		const password = signupForm['signup-password'].value;
-	
+
 		// sign up the user & add firestore data
 		auth.createUserWithEmailAndPassword(email, password).then(cred => {
 			return db.collection('users').doc(cred.user.uid).set({
@@ -67,7 +67,7 @@ if (loginForm) {
 			M.Modal.getInstance(modal).close();
 			loginForm.reset();
 			location.reload();
-		});
+		}, err => alert(err.message));
 	
 	});
 };

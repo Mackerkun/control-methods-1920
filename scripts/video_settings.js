@@ -35,6 +35,7 @@ var isUserInteracting = false,
             animate();
         } else {
             // doc.data() will be undefined in this case
+            M.toast({html: 'No user logged in'})
             console.log("No such document!");
         }
     }).catch(function (error) {
