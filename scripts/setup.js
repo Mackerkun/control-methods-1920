@@ -87,6 +87,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	var modals = document.querySelectorAll('.modal');
 	M.Modal.init(modals);
 
+	var finalGraphModal = document.getElementById('modal-3d-graph');
+	M.Modal.init(finalGraphModal, {onOpenEnd: function() {final3DGraph()}});
+
 	var items = document.querySelectorAll('.collapsible');
 	M.Collapsible.init(items);
 

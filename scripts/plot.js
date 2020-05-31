@@ -5,22 +5,26 @@ var latArray = [],
 
 // Load 3D Graph when clicking on button in index.html
 function final3DGraph() {
+    latArray = [];
+    lonArray = [];
     db.collection('analysis').get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
-            lonArray.push(doc.data().lonArray);
-            latArray.push(doc.data().latArray);
+            lonArray = lonArray.concat(doc.data().lonArray);
+            latArray = latArray.concat(doc.data().latArray);
         });
     
-        var final = lonArray;
-        final.push(latArray);
-        // Create 3D graph
-        /* 
-        Plotly.plot('3d-graph', [{
-            z: final,
+        var finalArray = [lonArray, latArray];
+        console.log(finalArray)
+
+        Plotly.newPlot('3d-graph', [{ // Data
+            z: finalArray,
             type: 'surface'
-        }]) 
-        */ 
+        }], { // Layout
+            title: '3D Graph'
+        }).then(function() {
+            document.getElementById('preloader').style.display = 'none';
+        });
     });    
 }
 
