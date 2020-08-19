@@ -74,8 +74,9 @@ const setupAnalysis = (data) => {
 		document.getElementById('analysis-title-h5').innerHTML = 'No data analysis available';
 	};
 
-	html += `<a class="waves-effect waves-light btn right" id="play-video-button" href="video.html#${userUid}" target="_blank" style="margin-top: 10px"><i class="material-icons left">video_library</i>Play video</a>`;
-	html += `<a class="waves-effect waves-light btn modal-trigger right" id="3d-graph-button" href="#" data-target="modal-3d-graph" style="margin-top: 10px; margin-right: 10px"><i class="material-icons left">show_chart</i>3D Graph</a>`;
+	html += `<a class="waves-effect waves-light btn right" id="play-video-button" href="video.html#${userUid}" style="margin-top: 10px"><i class="material-icons left">video_library</i>Play video</a>`;
+	html += `<a class="waves-effect waves-light btn modal-trigger right" id="3d-graph-button-lon" href="#" data-target="modal-3d-graph" style="margin-top: 10px; margin-right: 10px"><i class="material-icons left">show_chart</i>Lon 3D Graph</a>`;
+	html += `<a class="waves-effect waves-light btn modal-trigger right" id="3d-graph-button-lat" href="#" data-target="modal-3d-graph" style="margin-top: 10px; margin-right: 10px"><i class="material-icons left">show_chart</i>Lat 3D Graph</a>`;
 	(userUid) ? analysisList.innerHTML = html : '';
 	exportCSV();
 
@@ -88,7 +89,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	M.Modal.init(modals);
 
 	var finalGraphModal = document.getElementById('modal-3d-graph');
-	M.Modal.init(finalGraphModal, {onOpenEnd: function() {final3DGraph()}});
+	M.Modal.init(finalGraphModal, {
+		onOpenEnd: function(a, b) {final3DGraph(a, b)},
+		onCloseEnd: function() {document.getElementById('3d-graph').style.display = 'none'; document.getElementById('preloader').style.display = 'inline-block';}
+	});
 
 	var items = document.querySelectorAll('.collapsible');
 	M.Collapsible.init(items);

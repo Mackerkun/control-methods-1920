@@ -191,12 +191,19 @@ videoElement.onended = function() {
         })
         .then(function (docRef) {
             console.log("Document written with ID: ", docRef.id);
+            endVideo();
         })
         .catch(function (error) {
             console.error("Error adding document: ", error);
         });
 
+}
 
+function endVideo() {
+    var elem = document.getElementById('modal-endvideo');
+    M.Modal.getInstance(elem).open();
+    // Go back to the home page
+    setTimeout(function(){ location.replace('index.html') }, 5000);
 }
 
 // Update seconds_passed variable every second

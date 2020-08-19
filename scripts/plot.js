@@ -4,26 +4,26 @@ var latArray = [],
     lonArray = [];
 
 // Load 3D Graph when clicking on button in index.html
-function final3DGraph() {
+function final3DGraph(a, b) {
+    var direction = b.id.split('-')[3];
+    console.log(direction)
     latArray = [];
     lonArray = [];
     db.collection('analysis').get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
-            lonArray = lonArray.concat(doc.data().lonArray);
-            latArray = latArray.concat(doc.data().latArray);
+            lonArray.push(doc.data().lonArray);
+            latArray.push(doc.data().latArray);
         });
     
-        var finalArray = [lonArray, latArray];
-        console.log(finalArray)
-
         Plotly.newPlot('3d-graph', [{ // Data
-            z: finalArray,
+            z: (direction == 'lon') ? lonArray : latArray,
             type: 'surface'
         }], { // Layout
-            title: '3D Graph'
+            title: (direction == 'lon') ? 'Longitude 3D Graph' : 'Latitude 3D Graph'
         }).then(function() {
             document.getElementById('preloader').style.display = 'none';
+            document.getElementById('3d-graph').style.display = 'block';
         });
     });    
 }
